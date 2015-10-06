@@ -8,30 +8,36 @@
 <script type="text/javascript">
 $(document).ready(function(){
         $("#d_aboutme").hide(); $(".b_aboutme").show();
+        $("#d_code").hide(); $(".b_code").show();
         $("#d_researchtopics").hide(); $(".b_researchtopics").show();
         $("#d_publications").hide(); $(".b_publications").show();
         $("#d_academichistory").hide(); $(".b_academichistory").show();
 
   if (window.location.hash=='#aboutme') $("#d_aboutme").show();
+  else if (window.location.hash=='#code') $("#d_code").show();
   else if (window.location.hash=='#researchtopics') $("#d_researchtopics").show();
   else if (window.location.hash=='#publications') $("#d_publications").show();
   else if (window.location.hash=='#academichistory') $("#d_academichistory").show();
   else $("#d_aboutme").show();
 
   $('.b_aboutme').click(function(){
-    $("#d_researchtopics").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
+    $("#d_code").hide(); $("#d_researchtopics").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
+    $("#d_aboutme").show();
+  });
+  $('.b_code').click(function(){
+    $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
     $("#d_aboutme").show();
   });
   $('.b_researchtopics').click(function(){
-    $("#d_aboutme").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
+    $("#d_code").hide(); $("#d_aboutme").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
     $("#d_researchtopics").show();
   });
   $('.b_publications').click(function(){
-    $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_academichistory").hide();
+    $("#d_code").hide(); $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_academichistory").hide();
     $("#d_publications").show();
   });
   $('.b_academichistory').click(function(){
-    $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_publications").hide();
+    $("#d_code").hide(); $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_publications").hide();
     $("#d_academichistory").show();
   });
 });
