@@ -42,7 +42,7 @@ class KoreanHandlerAlone(webapp2.RequestHandler):
         path = os.path.join(os.path.split(__file__)[0], 'html/korean/index.html')
         f = open(path)
         self.response.out.write(f.read())
-        
+
 class MainHandler(webapp2.RequestHandler):
     def get(self,fname=None):
         if fname is None: fname='index.html'
@@ -73,8 +73,8 @@ class KoreanHandlerStyle(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
     ('/79', KoreanHandlerAlone),
     ('/79/([^/]+)?', KoreanHandler),
-    ('/miquel', KoreanHandlerAlone),
-    ('/miquel/([^/]+)?', KoreanHandler),
+    ('/miquel', MiquelHandlerAlone),
+    ('/miquel/([^/]+)?', MiquelHandler),
     ('/korean', KoreanHandlerAlone),
     ('/korean/([^/]+)?', KoreanHandler),
     ('/koreanwithhyangsun', KoreanHandlerAlone),
