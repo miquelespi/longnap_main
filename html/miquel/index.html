@@ -1,0 +1,319 @@
+
+<html>
+<head>
+<title>Miquel ESPI, Ph.D.　 (NTT Communication Science Laboratories)</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+        $("#d_aboutme").hide(); $(".b_aboutme").show();
+        $("#d_researchtopics").hide(); $(".b_researchtopics").show();
+        $("#d_publications").hide(); $(".b_publications").show();
+        $("#d_academichistory").hide(); $(".b_academichistory").show();
+
+  if (window.location.hash=='#aboutme') $("#d_aboutme").show();
+  else if (window.location.hash=='#researchtopics') $("#d_researchtopics").show();
+  else if (window.location.hash=='#publications') $("#d_publications").show();
+  else if (window.location.hash=='#academichistory') $("#d_academichistory").show();
+  else $("#d_aboutme").show();
+
+  $('.b_aboutme').click(function(){
+    $("#d_researchtopics").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
+    $("#d_aboutme").show();
+  });
+  $('.b_researchtopics').click(function(){
+    $("#d_aboutme").hide(); $("#d_publications").hide(); $("#d_academichistory").hide();
+    $("#d_researchtopics").show();
+  });
+  $('.b_publications').click(function(){
+    $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_academichistory").hide();
+    $("#d_publications").show();
+  });
+  $('.b_academichistory').click(function(){
+    $("#d_aboutme").hide(); $("#d_researchtopics").hide(); $("#d_publications").hide();
+    $("#d_academichistory").show();
+  });
+});
+</script>
+
+
+<style type="text/css">
+<!--
+h1, h2, h3 {
+  font-size: 16px;
+}
+
+
+h3 {
+  font-size: 34px;
+  color: #999999;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+h1 {
+  font-size: 20px;
+}
+body {
+  font-size: 16px;
+  padding: 30px 30px 30px 30px;           /* required to "hide" distance div */
+  margin: 0;            /* required to "hide" distance div */
+  font-family: Trebuchet MS1, Helvetica, Meiryo UI, MS UI Gothic, sans-serif;
+}
+h1, h4 {
+  margin: 0;
+  padding 0;
+}
+h2 {
+  font-weight: normal;
+  display: inline;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  padding-top:10px;
+}
+ul li {
+  list-style: none;
+  padding: 0px 0px 0px 0px;
+  margin 0px;
+  display: inline;
+}
+ul.indented li {
+  padding-left: 20px;
+  text-indent: -20px;
+}
+a {
+  text-decoration:none;
+  color: #070;
+}
+a:hover {
+  color: #666;
+  text-decoration:underline;
+}
+.content li, .more li {
+  display: block;
+  margin: 5px 0px 5px 20px;
+}
+#access, #footer {
+  margin-top:10px;
+  border-top: 3px solid grey;
+  font-weight: bold;
+}
+#footer {
+  margin-top: 80px;
+}
+
+.new {
+  color: white;
+  background-color: red;
+  padding: 2px;
+  font-size: 10px;
+  border: 1px solid #E00000;
+  position: relative; top: -0.25em;
+}
+
+-->
+</style>
+
+</head>
+<body>
+  <h1>Miquel ESPI, Ph.D. [<a href="index-j.html">日本語&#x21e8;</a>]</h1>
+  <h2>
+    <A href="mailto:espi.miquel@lab.ntt.co.jp" target="_blank">espi.miquel@lab.ntt.co.jp</A> / Tel: 0774-93-5351 / Fax: 0774-93-1945<br>
+    <A href="https://maps.google.com/maps/place?q=2-4,+Hikaridai,+Seikacho+Soraku-gun,+Kyoto,+619-0237&hl=en&ftid=0x60013d24925c9d45:0x6366b4b48b753432" target="_blank">NTT Communication Science Laboratories, 2-4, Hikaridai Seika-cho Soraku-gun Kyoto, 619-0237, Japan (Google maps&#x2197;)</A>
+  </h2><br>
+  <h2><A href="http://www.kecl.ntt.co.jp/icl/signal/" target="_blank">Signal Processing Research Group</A> / <A href="http://www.brl.ntt.co.jp/cs/media/" target="_blank">Media Information Laboratory</A> <br><A href="http://www.kecl.ntt.co.jp/" target="_blank">NTT Communication Science Laboratories</A> / <A href="http://www.ntt.co.jp/" target="_blank">NTT Corporation</A><h2>
+
+  <ul id="access">
+    <li><a href="#aboutme" class="b_aboutme">About me</a> |</li>
+    <li><a href="#researchtopics" class="b_researchtopics">Research topics</a> |</li>
+    <li><a href="#publications" class="b_publications">Publications</a> |</li>
+    <li><a href="#academichistory" class="b_academichistory">Background</a></li>
+  </ul>
+
+<div id="d_aboutme" class="content">
+  <h3>About me</h3>
+
+  <p>Research Associate at NTT Communication Science Laboratories, NTT Corporation, Japan.</p>
+
+  <h4>Updates</h4>
+  <ul class="indented">
+    <li><b>2015.08.28</b> Our work on feature extraction strategies for AED within the deep learning framework has been accepted to be included in the deep learning special issue for the EURASIP Journal on Audio, Speech, and Music Processing.</li>
+
+    <li><b>2015.07.16</b> As we announced earlier we will be presenting our most recent work at Interspeech next September. Come by and have a look on the 9th of Septmeber between 4:30pm and 6:30pm at the poster session 24 on "Speech and Audio Segmentation and Classification and Voice Activity Detection" (Location: Hall 2).</li>
+
+    <li><b>2015.07.02</b> Our paper on spectrogram-input deep neural networks for acoustic event detection has been accepted for publication onthe journal  IEICE Transactions of Systems and Information.</li>
+
+    <li><b>2015.06.02</b> We will be presenting our work on feature extraction strategies for deep leanring based AED at Interspeech 2015 in Dresden, Germany, next September 2015.</li>
+
+    <li><b>2014.09.05</b> We just presented our work on the use of multiple resolution spectorgram patches in AED at ASJ Autumn meeting in Hokkaido (September 3-5, 2014)</li>
+
+    <li><b>2014.05.19</b> This weekend I will be showcasing my research at Ongaku Symposium 2014 in Nihon University (May 24-25, 2014)</li>
+
+    <li><b>2014.05.01</b> I'll be presenting my work on acoustic event detection based on spectrogram-patch modeling at HSCMA 2014 in Nancy (France) between May, 12-14, 2014.</li>
+
+    <li><b>2013.07.26</b> I'll be presenting (and discussing) my latest results applying DNN to acoustic event during next ASJ Autumn Meeting in Toyohashi University of Techonolgy (Sept. 25, 2nd Speech A session).</li>
+
+    <li><b>2013.04.01</b> Just joined NTT CS Labs in Kyoto.</li>
+  </ul>
+</p>
+</div>
+
+<div id="d_researchtopics" class="content">
+  <h3>Research topics</h3>
+  <h4>Conversation scene analysis</h4>
+  <p><i>"Conversation scene analysis aims to provide the automatic description of conversation scenes from the multimodal nonverbal behaviors of participants, which are captured with cameras and microphones"</i></p>
+  <p style="text-align:right;">- <a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5888652&refinements%3D4230334195%26filter%3DAND%28p_IS_Number%3A5888632%29">K. Otsuka, Signal Processing Magazine, IEEE, 2011</a><p>
+
+  <h4>Acoustic event detection (characterisation, detection, and classification)</h4>
+  <p><i>"Acoustic Event Detection/Classification (AED/C) is a recent sub-area of computational auditory scene analysis that deals with processing acoustic signals and converting them into symbolic descriptions corresponding to a listener's perception of the different sound events that are present in the signals and their sources. While acoustic event classification deals with events that have already been isolated from its temporal context, acoustic event detection refers to both identification and localization in time of events in continuous audio streams."</i></p>
+  <p style="text-align:right;">- <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.476.6384&rep=rep1&type=pdf">A. Temko, IV Jornadas en Tecnología del Habla, 2006</a><p>
+
+  <h4>Acoustic scene classification</h4>
+  <p><i>"Acoustic scene classification aims to characterize the environment of an audio stream by providing a semantic label. It can be conceived of as a standard classification task in machine learning: given a relatively short clip of audio, the task is to select the most appropriate of a set of scene labels."</i></p>
+  <p style="text-align:right;">- <a href="http://c4dm.eecs.qmul.ac.uk/sceneseventschallenge/">D. Giannoulis, D-CASE Challenge, 2013</a><p>
+
+</div>
+
+<div id="d_publications" class="content">
+  <h3>Publications</h3>
+
+  <ul><h4>Patents</h4>
+    <li><a href="http://astamuse.com/ja/published/JP/No/2015057630">M. Espi, M. Fujimoto, Y. Kubo, and T. Nakatani, “Method and aparatus for modeling, training, and detection of acoustic events,” JP 2015-057630, March 2015.</a>
+    </li>
+
+    <li><a href="http://astamuse.com/ja/published/JP/No/2015049406">H. Kameoka, H. Ikezawa, N. Hojo, M. Espi, and S. Sagayama, “Method and aparatus for analysis of acoustic signals,” JP 2015-049406, March 2015.</a>
+    </li>
+
+  </ul>
+
+  <ul><h4>Peer-review publications</h4>
+
+    <li><a href="http://search.ieice.org/bin/summary.php?id=e98-d_10_1799&category=D&year=2015&lang=E&abst=">M. Espi, M. Fujimoto, and T. Nakatani, “Acoustic event detection in speech overlapping scenarios based on high-resolution spectral input and deep learning,” IEICE Trans. on Inf. and Sys., Vol. E98-D, No. 10, pp. 1799-1807, 2015.</a>
+    </li>
+
+    <li><a href="http://asmp.eurasipjournals.com/content/2015/1/26">M. Espi, M. Fujimoto, K. Kinoshita, and T. Nakatani, “Exploiting spectro-temporal locality in deep learning based acoustic event detection,” EURASIP Journal on Audio, Speech, and Music Processing, vol. 2015, no. 26, pp. 1-12, 2015.</a>
+    </li>
+
+    <li><a href="http://www.isca-speech.org/archive/interspeech_2015/i15_2922.html">M. Espi, M. Fujimoto, K. Kinoshita, and T. Nakatani, “Feature extraction strategies in deep learning based acoustic event detection,” ISCA Interspeech 2015, pp. 2922-2926, 2015.</a>
+    </li>
+
+    <li><a href="http://link.springer.com/article/10.1186/s13634-015-0245-7">M. Delcroix, T. Yoshioka, A. Ogawa, Y. Kubo, M. Fujimoto, N. Ito, K. Kinoshita, M. Espi, S. Araki, T. Hori, and T. Nakatani, “Strategies for distant speech recognition in reverberant environments,” EURASIP Journal on Advances in Signal Processing, vol. 2015, no. 1, pp. 1-15, 2015.</a>
+    </li>
+
+    <li><a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=7032172&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D7032172">M. Delcroix, T. Yoshioka, A. Ogawa, Y. Kubo, M. Fujimoto, N. Ito, K. Kinoshita, M. Espi, T. Hori, and T. Nakatani, “Defeating reverberation: Advanced dereverberation and recognition techniques for hands-free speech recognition,” IEEE Global Conference on Signal and Information Processing (GlobalSIP), pp. 522-526, 2014.</a>
+    </li>
+
+    <li><a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6843263&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D6843263">M. Espi, M. Fujimoto, Y. Kubo, and T. Nakatani, “Spectrogram patch based acoustic event detection and classification in speech overlapping conditions,” Hands-free Speech Communication and Microphone Arrays (HSCMA), pp. 117-121, 2014.</a>
+    </li>
+
+    <li><a href="http://reverb2014.dereverberation.com/workshop/reverb2014-papers/1569897299.pdf">M. Delcroix, T. Yoshioka, A. Ogawa, Y. Kubo, M. Fujimoto, N. Ito, K. Kinoshita, M. Espi, T. Hori, T. Nakatani, and A. Nakamura, “Linear prediction-based dereverberation with advanced speech enhancement and recognition technologies for the REVERB Challenge,” REVERB Workshop 2014, pp. 1-8, 2014.</a>
+    </li>
+
+    <li><a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=6288868&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D6288868">M. Espi, M. Fujimoto, D. Saito, N. Ono, and S. Sagayama, “A tandem connectionist model using combination of multi-scale spectro-temporal features for acoustic event detection,” IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP) 2012, pp. 4293–4296, 2012.</a>
+    </li>
+
+    <li><a href="http://www.isca-speech.org/archive/interspeech_2011/i11_2613.html" >M. Espi, S. Miyabe, T. Nishimoto, N. Ono, and S. Sagayama, “Using Spectral Fluctuation of Speech in multi-feature HMM-based voice activity detection,” ISCA Interspeech 2011, pp. 2613–2616, 2011.</a>
+    </li>
+
+    <li><a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=5700838&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D5700838">M. Espi, S. Miyabe, T. Nishimoto, N. Ono, and S. Sagayama, “Analysis on speech characteristics for robust voice activity detection,” IEEE Workshop on Spoken Language Technology (SLT) 2010, pp. 151-156, 2010.</a>
+    </li>
+
+    <li><a href="http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber=5303902&searchWithin=%22Authors%22:.QT.Espi,%20M..QT.&newsearch=true">M. Espi, and Y. Takeuchi, “Substitution of Vocal Folds for Voice Generation by Means of Intra-Oral Pulse Generator,” 2nd Congress on Image and Signal Processing 2009, pp. 1–5, 2009.</a>
+    </li>
+  </ul>
+
+  <ul><h4>Domestic papers (Japan)</h4>
+    <li><a href="http://www.ntt.co.jp/journal/1509/files/jn201509017.pdf">S. Araki, M. Fujimoto, T. Yoshioka, M. Delcroix, M. Espi, and T. Nakatani, "Deep learning based distant speech processing in real acoustic environments," NTT Technology Journal, October, 2015.</a>
+    </li>
+
+    <li><a href="http://www.ieice.org/ken/paper/20140524MBne/eng/">M. Espi, M. Fujimoto, Y. Kubo, and T. Nakatani, "A spectrogram-patch-input DNN model for detection and classification of acoustic events robust to speech overlapping scenarios," IEICE, SP2014-17, pp.171-176, 2014.</a></li>
+
+    <li><a href="https://ipsj.ixsq.nii.ac.jp/ej/index.php?active_action=repository_view_main_item_detail&page_id=13&block_id=8&item_id=102196&item_no=1">M. Delcroix, T. Yoshioka, A. Ogawa, Y. Kubo, M. Fujimoto, N. Ito, K. Kinoshita, M. Espi, T. Hori, T. Nakatani, and A. Nakamura, "Speech enhancement and recognition for reverberant speech: overview of the NTT REVERB challenge system," SIG Technical Reports, 2014-SLP-102 (5), pp. 1-4, 2014.</a>
+    </li>
+
+    <li>M. Espi, M. Fujimoto, and T. Nakatani, “Detection and classification of acoustic events using multiple resolution spectrogram patch models,” ASJ Autumn Meeting, 3-8-4, 2014.
+    </li>
+
+    <li>M. Espi, M. Fujimoto, and T. Nakatani, “Acoustic modeling of non-speech acoustic events based on deep neural networks,” ASJ Autumn Meeting, 1-8-9, 2013.
+    </li>
+
+    <li><a href="http://ci.nii.ac.jp/naid/110009699161/en/">H. Ikezawa, N. Hojo, M. Espi, H. Kameoka, and S. Sagayama, "Semi-blind spectrogram enhancement of speech corrupted by non-stationary noise in time-variant reverberant environment," IEICE General Conference, A-4-5, pp. 72-73, 2013. </a></li>
+
+    <li><a href="http://www.ieice.org/ken/paper/20121116U0Z4/eng/">M. Suzuki, N. Ono, T. Taniguchi, M. Sakai, A. Kawamura, M. Espi, and S. Sagayama, "Auxiliary-function-based independent vector analysis with non-speech frame information for speech enhancement," IEICE, EA2012-87, pp.35-38, 2012.</a></li>
+
+    <li>M. Espi, M. Fujimoto, D. Saito, N. Ono, and S.Sagayama, “Acoustic event detection using tandem connectionist model based integration of multi-scale spectral features,” ASJ Spring Meeting, 1-P-11, 2012.
+    </li>
+
+    <li>M. Espi, S. Miyabe, N. Ono, and S. Sagayama, “Exploiting spectral fluctuation of speech in multi-feature HMM-based voice activity detection,” ASJ Autumn Meeting, 1-10-13, 2011.
+    </li>
+
+    <li>M. Espi, S. Miyabe, N. Ono, and S. Sagayama, “Using Spectral Fluctuation of speech in Robust Voice Activity Detection,” ASJ Spring Meeting, 1-5-15, 2011.
+    </li>
+
+    <li><a href="http://www.ieice.org/ken/paper/20090417BaLt/eng/">M. Espi, and Y. Takeuchi, "On the Mandatory Part of Frequency Spectrum of Whispering Signal in Order to Synthesize Pseudo-Voice," IEICE, SP2009-4, pp.17-20, 2009.</a></li>
+
+  </ul>
+
+</div>
+
+<div id="d_academichistory" class="content">
+  <h3>Background</h3>
+<ul class="indented"><h4>Background (professional and academic in chronological order)</h4>
+<li>2013 - now | Research Associate at <A href="http://www.kecl.ntt.co.jp/icl/signal/" target="_blank">Signal Processing Research Group</A> (<A href="http://www.brl.ntt.co.jp/cs/media/" target="_blank">Media Information Laboratory</A>, <A href="http://www.kecl.ntt.co.jp/" target="_blank">NTT Communication Science Laboratories</A>, <A href="http://www.ntt.co.jp/" target="_blank">NTT Corporation</A>, Japan)</li>
+
+<li>2010 - 2013 | Ph.D. at <A href="http://hil.t.u-tokyo.ac.jp/index-e.html" target="_blank">Sagayama/Ono Laboratory</A> (<A href="http://www.ci.i.u-tokyo.ac.jp/" target="_blank">Department of Creative Informatics</A>, <A href="http://www.i.u-tokyo.ac.jp/index_e.shtml" target="_blank">Graduate School of Information Science and Technology</A>, <A href="http://www.u-tokyo.ac.jp/" target="_blank">The University of Tokyo</A>, Japan)
+
+<ul style="font-size:14px; padding-top: 2px; padding-bottom: 10px;">
+  <li>2007 - 2013 | Awarded with a Japanese Government Monbukagakusho Research Student Scholarship for Graduate Studies</li>
+  <li>Jul. 2011 - Aug. 2011 | Research internship at at <a href="http://www.kecl.ntt.co.jp/rps/index.html" target="_blank">NTT-CS Labs</a> Media Lab (Kyoto, Japan), supervised by <a href="http://www.kecl.ntt.co.jp/icl/signal/fujimoto/index-e.html" target="_blank">Dr. M. Fujimoto</a> </li>
+<!--<li>Sep. 2011 | Awarded with a grant from <A href="http://www.isca-speech-org" target="_blank">ISCA</A> to attend INTERSPEECH conference (Italy)</li>
+<li>Sep. 2011 | Awarded with a grant from the International Section of the <A href="http://www.i.u-tokyo.ac.jp/index_e.shtml" target="_blank">Graduate School of Information Science and Technology</A> (<A href="http://www.u-tokyo.ac.jp/" target="_blank">The University of Tokyo</A>, Japan) to attend INTERSPEECH conference, CHiME workshop, and visit FBK laboratories (all in Italy)</li>
+--></ul>
+
+</li>
+
+<li>2008 - 2010 | M.Sc. in Information Science at Professor Takeuchi's Laboratory (<A href="http://www.eng.kagoshima-u.ac.jp/">Graduate School of Science and Engineering</A>, <A href="http://www.kagoshima-u.ac.jp/">Kagoshima University</A>, Japan)
+  <ul style="font-size:14px; padding-top: 2px; padding-bottom: 10px;">
+  <li>2007 - 2013 | Awarded with a Japanese Government Monbukagakusho Research Student Scholarship for Graduate Studies</li>
+</ul>
+</li>
+<li>2007 - 2008 | Research Student at Professor Takeuchi's Laboratory (<A href="http://www.eng.kagoshima-u.ac.jp/" target="_blank">Graduate School of Science and Engineering</A>, <A href="http://www.kagoshima-u.ac.jp/" target="_blank">Kagoshima University</A>, Japan)
+  <ul style="font-size:14px; padding-top: 2px; padding-bottom: 10px;">
+  <li>2007 - 2013 | Awarded with a Japanese Government Monbukagakusho Research Student Scholarship for Graduate Studies</li>
+</ul>
+</li>
+<li>2007 - 2013 | Awarded with a Japanese Government Monbukagakusho Research Student Scholarship for Graduate Studies</li>
+<li>2006 - 2007 | Work as software analyst for DRUNI (Valencia, Spain)</li>
+<li>1998 - 2006 | B.Sc. Computer Science Engineering (<A href="http://www.upv.es/entidades/ETSINF/" target="_blank">Escuela Tecnica Superior de Ingenieria Informatica</A>, <A href="http://www.upv.es/" target="_blank">Universidad Politecnica de Valencia</A>, Spain)<br>
+
+<ul style="font-size:14px; padding-top: 2px; padding-bottom: 10px;">
+<li>2005 - 2006 | PROMOE private exchange scholarship by <A href="http://www.upv.es/" target="_blank">Universidad Politecnica de Valencia</A> to study abroad. Research student at Professor Takeuchi's Laboratory (<A href="http://www.eng.kagoshima-u.ac.jp/" target="_blank">Graduate School of Science and Engineering</A>, <A href="http://www.kagoshima-u.ac.jp/" target="_blank">Kagoshima University</A>, Japan)</li>
+<li>2004 - 2005 | Internship as software analyst at <A href="http://www.gft.com/" target="_blank">GFT Technologies AG.</A> (Valencia, Spain)</li>
+<li>2002 - 2003 | ERASMUS exchange scholarship by <A href="http://europa.eu/" target="_blank">European Union</A> to study abroad. Regular student at the <A href="http://www.informatik.rwth-aachen.de/" target="_blank">Department of Computer Science</A> (Faculty of Mathmatics, Computer Science and Natural Sciences, <A href="http://www.rwth-aachen.de/" target="_blank">RWTH-Aachen</A>, Germany)</li>
+</ul>
+</li>
+
+</ul>
+
+<ul class="indented"><h4>Other affiliations</h4>
+<li><A href="http://www.ieee.org" target="_blank">Institute of Electrical and Electronics Engineers (IEEE)&#x2197;</A></li>
+<li><A href="http://www.isca-speech.org" target="_blank">International Speech Communication Association (ISCA)&#x2197;</A></li>
+<li><A href="http://www.asj.or.jp" target="_blank">Acoustic Society of Japan (ASJ)&#x2197;</A></li>
+</ul>
+
+</div>
+
+  <ul class="more"><h4>More stuff on...</h4>
+    <li><a href="http://www.linkedin.com/in/miquelespi" target="_blank">LinkedIn (Miquel Espi))&#x2197;</a> </li>
+    <li><a href="https://scholar.google.com/citations?user=4TC4RZ0AAAAJ" target="_blank">Google Scholar (Miquel Espi)&#x2197;</a></li>
+    <li><a href="http://longnap.com" target="_blank">longnap&#x2197;</a> </li>
+  </ul>
+
+  <ul id="footer">
+    NTT Communication Science Laboratories, 2015. Last edited on September 1, 2015.
+  </ul>
+
+</body>
+</html>
