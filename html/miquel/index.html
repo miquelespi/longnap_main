@@ -62,10 +62,15 @@ h1 {
 }
 body {
   font-size: 16px;
-  padding: 30px 30px 30px 30px;           /* required to "hide" distance div */
+  padding: 0;
   margin: 0;            /* required to "hide" distance div */
   font-family: Trebuchet MS1, Helvetica, Meiryo UI, MS UI Gothic, sans-serif;
 }
+
+div.wrapper {
+  padding: 30px 30px 30px 30px;           /* required to "hide" distance div */
+}
+
 h1, h4 {
   margin: 0;
   padding: 0;
@@ -124,12 +129,46 @@ a:hover {
   position: relative; top: -0.25em;
 }
 
+div#notice {
+  background-color: #de4343;
+  padding: 15px 30px 15px 30px;
+  top: 0;
+  left: 0;
+  font-size: 1.3em;
+  color:white;
+}
+
+div#notice h3 {
+  padding: 0;
+  margin: 0;
+  color: white;
+  font-size: 1.5em;
+}
+
+div#notice a {
+  padding: 0;
+  margin: 0;
+  color: #FFC0CB;
+}
+
+div#notice a:hover {
+  color: white;
+}
+
 
 -->
 </style>
 
 </head>
 <body>
+<!--
+<div id="notice">
+  <h3>Notice</h3>
+  <p>Notice contents</p>
+</div>
+-->
+
+<div class="wrapper">
   <h1>Miquel Espi</h1>
   <h2>
     <A href="mailto:miquel@longnap.com" target="">miquel@longnap.com</A> / Tel: 0774-93-5351 / Fax: 0774-93-1945
@@ -323,6 +362,8 @@ a:hover {
   <ul id="footer">
   Miquel Espi, 2015.
   </ul>
+
+</div>
 
 </body>
 </html>
