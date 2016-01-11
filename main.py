@@ -71,14 +71,14 @@ class KoreanHandlerStyle(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/79', KoreanHandlerAlone),
-    ('/79/([^/]+)?', KoreanHandler),
+#    ('/79', KoreanHandlerAlone),
+#    ('/79/([^/]+)?', KoreanHandler),
     ('/miquel', MiquelHandlerAlone),
     ('/miquel/([^/]+)?', MiquelHandler),
-    ('/korean', KoreanHandlerAlone),
-    ('/korean/([^/]+)?', KoreanHandler),
-    ('/koreanwithhyangsun', KoreanHandlerAlone),
-    ('/koreanwithhyangsun/([^/]+)?', KoreanHandler),
-    ('/style_korean.css', KoreanHandlerStyle),
+#    ('/korean', KoreanHandlerAlone),
+#    ('/korean/([^/]+)?', KoreanHandler),
+#    ('/koreanwithhyangsun', KoreanHandlerAlone),
+#    ('/koreanwithhyangsun/([^/]+)?', KoreanHandler),
+#    ('/style_korean.css', KoreanHandlerStyle),
     ('/([^/]+)?', MainHandler),
 ], debug=True)
