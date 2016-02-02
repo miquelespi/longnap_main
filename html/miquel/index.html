@@ -53,7 +53,7 @@ h1, h2, h3 {
 
 h3 {
   font-size: 34px;
-  color: #999999;
+  /*color: #999999;*/
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -64,7 +64,9 @@ body {
   font-size: 16px;
   padding: 0;
   margin: 0;            /* required to "hide" distance div */
-  font-family: Trebuchet MS1, Helvetica, Meiryo UI, MS UI Gothic, sans-serif;
+  font-family: Helvetica, Meiryo UI, MS UI Gothic, sans-serif;
+  background-color: #f2f2f2;
+  color: #666666;
 }
 
 div.wrapper {
@@ -101,23 +103,24 @@ ul.indented li {
 }
 a {
   text-decoration:none;
-  color: #070;
+  color: black; /*#070;*/
 }
 a:hover {
-  color: #666;
+  color: black; /*#666;*/
   text-decoration:underline;
 }
 .content li, .more li {
   display: block;
   margin: 5px 0px 10px 20px;
 }
-#access, #footer {
-  margin-top:15px;
-  border-top: 3px solid grey;
+#access {
+  margin-top:0.5em;
+  /*border-top: 3px solid grey;*/
   font-weight: bold;
 }
 #footer {
-  margin-top: 80px;
+  margin-top:45px;
+  text-align: right;
 }
 
 .new {
@@ -155,7 +158,19 @@ div#notice a:hover {
   color: white;
 }
 
+.opps {
+  background-color: #333333;
+  color: #e6e6e6;
+}
 
+.opps a {
+  color: #cccccc;
+}
+
+#access li{
+  padding-right:0.6em;
+  font-size: 1.1em;
+}
 -->
 </style>
 
@@ -168,26 +183,32 @@ div#notice a:hover {
 </div>
 -->
 
-<div class="wrapper">
-  <h1>Miquel Espi</h1>
-  <h2>
-    <A href="mailto:miquel@longnap.com" target="">miquel@longnap.com</A>
-  </h2>
-  <h2>DSP Research Engineer at <A href="http://starkey.com">Starkey Hearing Technologies</A> <h2>
-  <h2>More stuff on:
-    <a href="http://www.linkedin.com/in/miquelespi" target="">LinkedIn</a> |
-    <a href="https://scholar.google.com/citations?user=4TC4RZ0AAAAJ" target="">Google Scholar</a> |
-    <a href="http://facebook.com/troppo" target="">Facebook</a> |
-    <a href="http://longnap.com" target="">longnap</a>
-  </h2>
+<div class="wrapper opps">
+  <div>
+    <div style=""><img class="profpic" src="profile.png" style="height:5.2em;width:5,2em;float:left;padding-right: 1em;"/></div>
+    <h1>Miquel Espi</h1>
+    <h2>
+      <A href="mailto:miquel@longnap.com" target="">miquel@longnap.com</A>
+    </h2>
+    <h2>DSP Research Engineer at <A href="http://starkey.com">Starkey Hearing Technologies</A> <h2>
+    <h2>More stuff on:
+      <a href="http://www.linkedin.com/in/miquelespi" target="">LinkedIn</a> |
+      <a href="https://scholar.google.com/citations?user=4TC4RZ0AAAAJ" target="">Google Scholar</a> |
+      <a href="http://facebook.com/troppo" target="">Facebook</a> |
+      <a href="http://longnap.com" target="">longnap</a>
+    </h2>
+  </div>
 
   <ul id="access">
-    <li><a href="#aboutme" class="b_aboutme">About me</a> |</li>
-    <li><a href="#code" class="b_code">Code</a> |</li>
-    <li><a href="#researchtopics" class="b_researchtopics">Research topics</a> |</li>
-    <li><a href="#publications" class="b_publications">Publications and Awards</a> |</li>
+    <li><a href="#aboutme" class="b_aboutme">About me</a></li>
+    <li><a href="#code" class="b_code">Code</a></li>
+    <li><a href="#researchtopics" class="b_researchtopics">Research topics</a></li>
+    <li><a href="#publications" class="b_publications">Publications and Awards</a></li>
     <li><a href="#academichistory" class="b_academichistory">Background</a></li>
   </ul>
+</div>
+
+<div class="wrapper">
 
 <div id="d_aboutme" class="content">
   <h3>About me</h3>
@@ -365,9 +386,11 @@ div#notice a:hover {
 
 </div>
 
+</div>
+<div class="wrapper">
 
   <ul id="footer">
-  Miquel Espi, 2015.
+  Miquel Espi, 2016.
   </ul>
 
 </div>
