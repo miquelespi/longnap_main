@@ -39,9 +39,7 @@ class KoreanHandler(webapp2.RequestHandler):
 
 class KoreanHandlerAlone(webapp2.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.split(__file__)[0], 'html/korean/index.html')
-        f = open(path)
-        self.response.out.write(f.read())
+        self.redirect('/korean/')
 
 class MainHandler(webapp2.RequestHandler):
     def get(self,fname=None):
@@ -60,9 +58,8 @@ class MiquelHandler(webapp2.RequestHandler):
 
 class MiquelHandlerAlone(webapp2.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.split(__file__)[0], 'html/miquel/index.html')
-        f = open(path)
-        self.response.out.write(f.read())
+        self.redirect('/miquel/')
+
 class KoreanHandlerStyle(webapp2.RequestHandler):
     def get(self):
         path = os.path.join(os.path.split(__file__)[0], 'html/korean/style_korean.css')
