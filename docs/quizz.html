@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3학년 역사퀴즈대회 (심화)</title>
+    <style>
+        :root {
+            --bg-color: #f0f2f5;
+            --card-color: #ffffff;
+            --text-main: #1a1a1a;
+            --text-sub: #666;
+            --accent: #4a90e2;
+            --answer-text: #d93025;
+        }
+
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        #quiz-container {
+            width: 80%;
+            max-width: 800px;
+            height: 60vh;
+            perspective: 1000px;
+        }
+
+        #card {
+            width: 100%;
+            height: 100%;
+            background: var(--card-color);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        #label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        #content {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.5;
+            color: var(--text-main);
+            word-break: keep-all;
+            max-width: 90%;
+        }
+
+        #answer-context {
+            margin-top: 20px;
+            font-size: 1.1rem;
+            color: var(--text-sub);
+            display: none;
+        }
+
+        .answer-mode #content {
+            color: var(--answer-text);
+            font-size: 2.8rem;
+        }
+
+        .answer-mode #label {
+            color: var(--answer-text);
+        }
+
+        .answer-mode #answer-context {
+            display: block;
+        }
+
+        #progress {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 1rem;
+            color: #ccc;
+            font-weight: bold;
+        }
+
+        #help {
+            position: absolute;
+            bottom: 30px;
+            color: #999;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 20px;
+        }
+
+        .key-hint {
+            display: inline-block;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-weight: bold;
+            background: #fff;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            #content { font-size: 1.6rem; }
+            .answer-mode #content { font-size: 2rem; }
+            #quiz-container { width: 90%; height: 50vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="quiz-container">
+        <div id="card">
+            <div id="progress"></div>
+            <div id="label">문제</div>
+            <div id="content">Loading...</div>
+            <div id="answer-context"></div>
+
+            <div id="help">
+                <div><span class="key-hint">←</span> 뒤로</div>
+                <div><span class="key-hint">Space</span> <span class="key-hint">→</span> 정답/다음</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data: Questions elaborated for clarity/grade level, Answers exact from image.
+        const quizData = [
+            { q: "설날에 친척이나 이웃 어른들께 '새해 복 많이 받으세요'라며 올리는 큰 절은?", a: "세배" },
+            { q: "설날에 서로의 행복을 빌어주며 나누는 좋은 인사말을 무엇이라고 하나요?", a: "덕담" },
+            { q: "8월 15일 추석을 부르는 다른 말로, '크다'와 '가운데'라는 뜻이 합쳐진 말은?", a: "한가위" },
+            { q: "설날이나 추석 아침에 조상님께 감사의 마음으로 올리는 제사는?", a: "차례" },
+            { q: "2026년은 12띠 동물 중 어떤 동물의 해인가요?", a: "말" },
+            { q: "아기가 태어난 지 1년이 되는 돌잔치에서, 물건을 잡아 미래를 점치는 풍습은?", a: "돌잡이" },
+            { q: "추석에 멥쌀 반죽에 깨, 콩 등을 넣고 반달 모양으로 빚어 찌는 떡은?", a: "송편" },
+            { q: "배추나 무를 소금에 절인 뒤 고춧가루 양념을 더해 발효시킨 한국의 전통 음식은?", a: "김치" },
+            { q: "산이나 들에서 캔 풀이나 나뭇잎을 삶거나 볶아서 만든 반찬은?", a: "나물" },
+            { q: "추석 날 밤, 보름달 아래에서 손을 잡고 둥글게 원을 그리며 춤추는 놀이는?", a: "강강술래" },
+            { q: "윷놀이의 도, 개, 걸, 윷, 모는 각각 동물을 뜻합니다. 다섯 동물의 이름을 순서대로 말해보세요.", a: "돼지, 개, 양, 소, 말" },
+            { q: "사물놀이에서 사용하는 네 가지 악기는 꽹과리, 징, 장구, 그리고 무엇인가요?", a: "북" },
+            { q: "긴 널빤지 양쪽 끝에 서서 번갈아 뛰어오르며 즐기는 전통 놀이는?", a: "널뛰기" },
+            { q: "옛 선비들이 좋아했던 네 가지 식물(매화, 난초, 국화, 대나무)을 통틀어 무엇이라 하나요?", a: "매(매화), 난(난초), 국(국화), 죽(대나무)" },
+            { q: "보존 능력이 뛰어나며 닥나무로 만드는 한국의 전통 종이 이름은?", a: "한지" },
+            { q: "선비가 늘 곁에 두는 네 가지 친구인 종이, 붓, 먹, 벼루를 무엇이라 하나요?", a: "종이, 붓, 먹, 벼루" },
+            { q: "조선시대 서민들의 삶을 재미있게 표현했던 대표적인 풍속화가 두 명은?", a: "김홍도, 신윤복" },
+            { q: "세종대왕이 '백성을 가르치는 바른 소리'라는 뜻으로 만든 우리 글자는?", a: "훈민정음" },
+            { q: "세종대왕이 한글을 만들어 세상에 널리 알린 날을 기념하는 국경일(10월 9일)은?", a: "10월 9일" },
+            { q: "한복 저고리 고름이나 치마 허리에 차는 여성들의 전통 장신구 이름은?", a: "노리개" },
+            { q: "조선시대 성인 남자가 외출할 때 쓰던, 챙이 넓은 검은색 모자는?", a: "갓" },
+            { q: "아궁이에 불을 때서 방바닥을 따뜻하게 데우는 우리나라 고유의 난방 시설은?", a: "온돌" },
+            { q: "볏짚으로 지붕을 덮어 만든 우리나라의 전통 집은?", a: "초가집" },
+            { q: "신라 천 년의 역사를 간직하고 있어 '도시 전체가 박물관'이라 불리는 도시는?", a: "경주" },
+            { q: "해인사에 보관되어 있으며 유네스코 세계기록유산인 불교 경전 목판은?", a: "해인사 대장경판; 팔만대장경" },
+            { q: "허준이 쓴 책으로, 유네스코 기록유산에 등재된 유명한 의학 서적은?", a: "동의보감" },
+            { q: "한양 도성의 남쪽 문으로, 국보 제1호인 '숭례문'을 부르는 다른 이름은?", a: "남대문" },
+            { q: "대한민국 가장 동쪽 끝에 위치한 섬의 이름은?", a: "독도" },
+            { q: "대한민국의 수도는 어디인가요?", a: "서울" },
+            { q: "아버지의 형의 딸(사촌 누나/여동생)과 나는 몇 촌인가요?", a: "4촌" },
+            { q: "한국의 대표적인 민요로, 한민족의 기쁨과 슬픔이 담겨 있는 노래는?", a: "아리랑" },
+            { q: "해외에서 큰 인기를 얻고 있는 한국의 대중음악을 일컫는 말은?", a: "케이팝" },
+            { q: "우리나라 지폐(1,000원~50,000원)에 그려진 위인 4명의 이름은?", a: "이황, 이이, 세종대왕, 신사임당" },
+            { q: "태극기 네 모서리에 있는 4괘(건곤감리)는 각각 자연의 무엇을 상징하나요?", a: "하늘, 땅, 물, 불" },
+            { q: "애국가 1절과 2절 가사에 나오는 산과 나무의 이름은?", a: "동해, 백두산, 남산, 소나무" },
+            { q: "2024년 한국인 최초로 노벨문학상을 받은 작가의 이름은?", a: "한강" },
+            { q: "유네스코에서 문맹 퇴치에 힘쓴 사람에게 주는 상의 이름은?", a: "세종대왕문해상" },
+            { q: "우리나라에서 올림픽이 열렸던 두 번의 연도와 도시는?", a: "1988서울, 2018평창" },
+            { q: "최초의 국가 고조선이 세워진 날을 기념하는 국경일은?", a: "개천절 10월 3일" },
+            { q: "단군신화에서 쑥과 마늘을 먹고 사람이 된 동물은?", a: "곰" },
+            { q: "고조선의 건국 이념으로 '널리 인간을 이롭게 한다'는 뜻은?", a: "홍익인간" },
+            { q: "우리나라 역사에서 삼국시대의 세 나라는 어디 어디 인가요?", a: "고구려, 백제, 신라" },
+            { q: "동양에서 가장 오래된 천문대로, 신라 선덕여왕 때 만든 것은?", a: "첨성대, 신라" },
+            { q: "고구려, 백제, 신라 세 나라를 하나로 통일한 나라는?", a: "신라" },
+            { q: "한국의 영어 이름 'KOREA'의 유래가 된 나라의 이름은?", a: "고려" },
+            { q: "세계에서 가장 오래된 금속활자로 인쇄된 책의 이름은?", a: "직지심체요절" },
+            { q: "세종대왕 때 장영실이 발명한 것으로, 비의 양을 측정하는 기구를 만든 사람은?", a: "장영실" },
+            { q: "임진왜란 때 거북 모양의 배(거북선)를 만들어 일본군을 물리친 장군은?", a: "이순신" },
+            { q: "5만원권 지폐의 주인공이자 율곡 이이의 어머니인 조선시대 화가는?", a: "신사임당" },
+            { q: "조선시대 암행어사가 신분을 증명하기 위해 가지고 다녔던 패는?", a: "암행어사" }, /* Note: Following image row 50 text context/answer */
+            { q: "1903년 한국인이 처음으로 미국 하와이에 도착한 날을 기념하는 날은?", a: "미주 한인의 날" },
+            { q: "1919년 3월 1일, 전국적으로 독립 만세 운동을 벌인 날을 기념하는 국경일은?", a: "삼일절" },
+            { q: "안창호 선생님이 미국 샌프란시스코에서 조직한 독립운동 단체는?", a: "대한인국민회" },
+            { q: "대한민국 임시정부가 처음 세워진 중국의 도시는?", a: "상하이" },
+            { q: "나라가 위기에 처했을 때 스스로 일어나 싸운 의로운 병사는?", a: "의병" },
+            { q: "대한민국 임시정부의 리더이며 한인애국단을 만든 독립운동가는?", a: "김구" },
+            { q: "일제강점기에 우리말과 글을 지키기 위해 노력했던 단체는?", a: "조선어학회" },
+            { q: "1945년 8월 15일, 우리나라가 독립을 되찾은 날은?", a: "광복절" },
+            { q: "독립신문을 발행하고 한국의 독립을 도운 외국인 선교사는?", a: "호머 헐버트" },
+            { q: "한국인 최초로 노벨 평화상을 받은 제15대 대통령은?", a: "김대중" },
+            { q: "전통 혼례 때 신부가 머리에 쓰는 장식용 모자는?", a: "족두리" },
+            { q: "김치나 된장처럼 미생물에 의해 유익하게 변하는 현상은?", a: "발효" },
+            { q: "생강과 계피를 끓인 물에 곶감을 띄워 먹는 겨울철 전통 음료는?", a: "수정과" },
+            { q: "방을 따뜻하게 데우고 밥을 짓기 위해 불을 때는 부엌의 시설은?", a: "아궁이" },
+            { q: "신라의 미소라고 불리며, 온화한 미소를 띤 기와 장식의 이름은?", a: "경주 얼굴무늬 수막새" },
+            { q: "소리꾼이 고수의 북장단에 맞춰 긴 이야기를 노래로 부르는 것은?", a: "판소리" },
+            { q: "김홍도가 그린 그림으로, 훈장님 앞에서 훌쩍이는 아이가 나오는 그림 제목은?", a: "서당" },
+            { q: "정월대보름 아침에 깨물어 먹으면 부스럼이 생기지 않는다는 견과류는?", a: "부럼" }
+        ];
+
+        let shuffledList = [];
+        let currentIndex = 0;
+        let isShowingAnswer = false;
+
+        function shuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            while (currentIndex != 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function initQuiz() {
+            shuffledList = shuffle([...quizData]);
+            currentIndex = 0;
+            isShowingAnswer = false;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            const card = document.getElementById('card');
+            const label = document.getElementById('label');
+            const content = document.getElementById('content');
+            const context = document.getElementById('answer-context');
+            const progress = document.getElementById('progress');
+
+            progress.textContent = `${currentIndex + 1} / ${shuffledList.length}`;
+            
+            const currentItem = shuffledList[currentIndex];
+
+            if (!isShowingAnswer) {
+                // Showing Question
+                document.body.className = "question-mode";
+                card.classList.remove('answer-mode');
+                label.textContent = "문제";
+                content.textContent = currentItem.q;
+                context.textContent = "";
+            } else {
+                // Showing Answer
+                document.body.className = "answer-mode";
+                card.classList.add('answer-mode');
+                label.textContent = "정답";
+                content.textContent = currentItem.a;
+                context.textContent = `Q: ${currentItem.q}`;
+            }
+        }
+
+        function goNext() {
+            if (!isShowingAnswer) {
+                // Question -> Answer
+                isShowingAnswer = true;
+            } else {
+                // Answer -> Next Question
+                if (currentIndex < shuffledList.length - 1) {
+                    currentIndex++;
+                    isShowingAnswer = false;
+                } else {
+                    // End of quiz, loop back to start? or reshuffle?
+                    // Let's loop back to 0 with same shuffle for continuity, or prompt.
+                    // Simple loop:
+                    currentIndex = 0;
+                    isShowingAnswer = false;
+                    shuffledList = shuffle([...quizData]); // Reshuffle on completion
+                }
+            }
+            updateDisplay();
+        }
+
+        function goBack() {
+            if (isShowingAnswer) {
+                // Answer -> Question
+                isShowingAnswer = false;
+            } else {
+                // Question -> Previous Answer
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    isShowingAnswer = true;
+                }
+            }
+            updateDisplay();
+        }
+
+        // Event Listeners
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'ArrowRight' || e.code === 'Space') {
+                goNext();
+            } else if (e.code === 'ArrowLeft') {
+                goBack();
+            }
+        });
+
+        // Touch Interaction
+        document.getElementById('card').addEventListener('click', (e) => {
+            // Divide screen: Left 30% goes back, Right 70% goes next
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            
+            if (x < rect.width * 0.3) {
+                goBack();
+            } else {
+                goNext();
+            }
+        });
+
+        // Init
+        initQuiz();
+
+    </script>
+</body>
+</html>
