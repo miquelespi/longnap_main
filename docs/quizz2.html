@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>역사 퀴즈 게임</title>
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --success: #2ECC71;
+            --error: #E74C3C;
+            --background: #F0F4F8;
+            --card-bg: #FFFFFF;
+            --text: #2C3E50;
+        }
+
+        body {
+            font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background-color: var(--background);
+            margin: 0;
+            padding: 20px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow: hidden;
+        }
+
+        /* Header / Score */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            flex-shrink: 0;
+        }
+
+        h1 {
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--text);
+        }
+
+        #score-board {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Question Area */
+        #question-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        #question-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        /* Options Grid */
+        #options-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            height: 40%;
+            flex-shrink: 0;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #E0E6ED;
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            word-break: keep-all;
+            box-shadow: 0 4px 0 #E0E6ED;
+        }
+
+        .option-btn:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        /* Feedback Styles */
+        .correct {
+            background-color: var(--success) !important;
+            color: white !important;
+            border-color: var(--success) !important;
+            box-shadow: 0 4px 0 #27ae60 !important;
+            animation: pop 0.3s ease;
+        }
+
+        .wrong {
+            background-color: var(--error) !important;
+            color: white !important;
+            border-color: var(--error) !important;
+            box-shadow: 0 4px 0 #c0392b !important;
+            animation: shake 0.4s ease;
+        }
+
+        /* Next Button (Overlay) */
+        #next-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            border-radius: 20px;
+        }
+
+        #next-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50px;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.4);
+            cursor: pointer;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Animations */
+        @keyframes pop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            #question-text { font-size: 1.4rem; }
+            .option-btn { font-size: 1.1rem; padding: 10px; }
+            #options-container { grid-template-columns: 1fr; height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="progress">문제 1 / 60</h1>
+        <div id="score-board">점수: 0</div>
+    </header>
+
+    <div id="question-container">
+        <div id="question-text">문제가 여기에 나옵니다.</div>
+        <div id="next-overlay">
+            <button id="next-btn">다음 문제 ▶</button>
+        </div>
+    </div>
+
+    <div id="options-container">
+        <button class="option-btn"></button>
+        <button class="option-btn"></button>
+        <button class="option-btn"></button>
+        <button class="option-btn"></button>
+    </div>
+
+    <!-- Audio Elements (Simple beeps generated via AudioContext in JS is better, but using simple HTML audio for portability if files existed. Here we simulate with visual feedback only to keep it single-file.) -->
+
+    <script>
+        const quizData = [
+            { q: "설날에 어른들께 올리는 큰 절은?", a: "세배" },
+            { q: "설날에 주고받는 좋은 말은?", a: "덕담" },
+            { q: "추석의 다른 이름 (크다+가운데)", a: "한가위" },
+            { q: "명절 아침 조상에게 지내는 제사는?", a: "차례" },
+            { q: "2026년은 무슨 동물의 해인가요?", a: "말" },
+            { q: "돌잔치에서 물건을 잡아 미래를 점치는 것은?", a: "돌잡이" },
+            { q: "추석에 먹는 반달 모양 떡은?", a: "송편" },
+            { q: "배추를 소금에 절여 발효시킨 음식은?", a: "김치" },
+            { q: "나물과 밥을 비벼 먹는 음식은?", a: "비빔밥" }, // Contextual fix
+            { q: "추석 밤에 원을 그리며 추는 춤은?", a: "강강술래" },
+            { q: "윷놀이: 도, 개, 걸, 윷, 다음은?", a: "모" }, // Contextual fix for multiple choice length
+            { q: "사물놀이 악기: 꽹과리, 징, 장구, 그리고?", a: "북" },
+            { q: "널빤지 위에서 뛰는 놀이는?", a: "널뛰기" },
+            { q: "사군자: 매화, 난초, 국화, 그리고?", a: "대나무" }, // Shortened for button fit
+            { q: "우리나라 전통 종이는?", a: "한지" },
+            { q: "문방사우: 종이, 붓, 먹, 그리고?", a: "벼루" }, // Shortened
+            { q: "조선시대 대표 풍속화가 김홍도와 누구?", a: "신윤복" },
+            { q: "세종대왕이 만든 글자는?", a: "훈민정음" },
+            { q: "한글날은 언제인가요?", a: "10월 9일" },
+            { q: "한복 저고리에 차는 장신구는?", a: "노리개" },
+            { q: "조선시대 남자가 쓰던 검은 모자는?", a: "갓" },
+            { q: "한국의 전통 난방 방식은?", a: "온돌" },
+            { q: "볏짚으로 지붕을 이은 집은?", a: "초가집" },
+            { q: "신라의 수도이자 지붕 없는 박물관은?", a: "경주" },
+            { q: "해인사에 보관된 불교 목판은?", a: "팔만대장경" }, // Shortened
+            { q: "허준이 쓴 의학 서적은?", a: "동의보감" },
+            { q: "남대문의 원래 이름은?", a: "숭례문" },
+            { q: "대한민국 제일 동쪽 섬은?", a: "독도" },
+            { q: "대한민국의 수도는?", a: "서울" },
+            { q: "아버지의 형의 딸과 나의 촌수는?", a: "4촌" },
+            { q: "한국의 대표 민요는?", a: "아리랑" },
+            { q: "세계적으로 인기 있는 한국 대중음악은?", a: "케이팝" },
+            { q: "5만원권에 그려진 인물은?", a: "신사임당" },
+            { q: "태극기 4괘: 건, 곤, 감, 그리고?", a: "리" }, // Shortened
+            { q: "애국가 1절에 나오는 산은?", a: "백두산" },
+            { q: "2024년 노벨문학상을 받은 작가는?", a: "한강" },
+            { q: "유네스코 문맹 퇴치상 이름은?", a: "세종대왕문해상" },
+            { q: "개천절은 몇 월 며칠인가요?", a: "10월 3일" },
+            { q: "단군신화에서 사람이 된 동물은?", a: "곰" },
+            { q: "널리 인간을 이롭게 한다는 뜻은?", a: "홍익인간" },
+            { q: "삼국시대: 고구려, 백제, 그리고?", a: "신라" },
+            { q: "동양에서 가장 오래된 천문대는?", a: "첨성대" },
+            { q: "삼국을 통일한 나라는?", a: "신라" },
+            { q: "KOREA의 유래가 된 나라는?", a: "고려" },
+            { q: "세계 최초 금속활자본은?", a: "직지심체요절" },
+            { q: "비의 양을 재는 기구는?", a: "측우기" },
+            { q: "거북선을 만든 사람은?", a: "이순신" },
+            { q: "암행어사의 신분증은?", a: "마패" }, // Corrected for button clarity
+            { q: "첫 한국인 이민 도착지는?", a: "하와이" }, // Shortened
+            { q: "3.1 운동 기념 국경일은?", a: "삼일절" },
+            { q: "안창호가 조직한 단체는?", a: "대한인국민회" },
+            { q: "임시정부가 세워진 도시는?", a: "상하이" },
+            { q: "나라를 위해 일어난 의로운 병사는?", a: "의병" },
+            { q: "임시정부 리더이자 백범일지 저자는?", a: "김구" },
+            { q: "한글을 지키려 한 단체는?", a: "조선어학회" },
+            { q: "8월 15일 독립 기념일은?", a: "광복절" },
+            { q: "독립을 도운 외국인 호머 헐버트", a: "호머 헐버트" }, // Kept as identity
+            { q: "노벨평화상을 받은 대통령은?", a: "김대중" },
+            { q: "혼례 때 쓰는 여자 모자는?", a: "족두리" },
+            { q: "미생물로 유익하게 변하는 현상은?", a: "발효" },
+            { q: "겨울철 곶감을 넣어 먹는 음료는?", a: "수정과" },
+            { q: "방에 불을 때는 부엌 시설은?", a: "아궁이" },
+            { q: "신라의 미소라 불리는 기와는?", a: "얼굴무늬 수막새" }, // Shortened
+            { q: "북 장단에 맞춰 노래하는 것은?", a: "판소리" },
+            { q: "서당 풍경을 그린 김홍도의 그림은?", a: "서당" },
+            { q: "정월대보름에 깨무는 견과류는?", a: "부럼" }
+        ];
+
+        // State variables
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let shuffledQuiz = [];
+        let canClick = true;
+
+        // Elements
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+        const optionBtns = document.querySelectorAll('.option-btn');
+        const scoreBoard = document.getElementById('score-board');
+        const progress = document.getElementById('progress');
+        const nextOverlay = document.getElementById('next-overlay');
+        const nextBtn = document.getElementById('next-btn');
+
+        // Helper: Shuffle Array
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Helper: Get 3 wrong answers
+        function getWrongAnswers(correctAnswer) {
+            // Filter out the correct answer from all possible answers
+            const allAnswers = quizData.map(item => item.a);
+            const wrongPool = allAnswers.filter(ans => ans !== correctAnswer);
+            // Shuffle and pick 3
+            return shuffle(wrongPool).slice(0, 3);
+        }
+
+        // Initialize Game
+        function initGame() {
+            shuffledQuiz = shuffle([...quizData]);
+            currentQuestionIndex = 0;
+            score = 0;
+            scoreBoard.innerText = `점수: ${score}`;
+            loadQuestion();
+        }
+
+        // Load Question
+        function loadQuestion() {
+            canClick = true;
+            nextOverlay.style.display = 'none';
+            
+            // Reset button styles
+            optionBtns.forEach(btn => {
+                btn.className = 'option-btn';
+                btn.disabled = false;
+            });
+
+            if (currentQuestionIndex >= shuffledQuiz.length) {
+                // Game Over - Restart
+                alert(`게임 끝! 총 점수: ${score}점`);
+                initGame();
+                return;
+            }
+
+            const currentData = shuffledQuiz[currentQuestionIndex];
+            
+            // Update Text
+            progress.innerText = `문제 ${currentQuestionIndex + 1} / ${shuffledQuiz.length}`;
+            questionText.innerText = currentData.q;
+
+            // Prepare Options (1 Correct + 3 Wrong)
+            const wrongAnswers = getWrongAnswers(currentData.a);
+            const options = shuffle([currentData.a, ...wrongAnswers]);
+
+            // Assign to buttons
+            optionBtns.forEach((btn, index) => {
+                btn.innerText = options[index];
+                
+                // Click Handler
+                btn.onclick = () => {
+                    if (!canClick) return;
+                    canClick = false; // Prevent multiple clicks
+
+                    if (options[index] === currentData.a) {
+                        // CORRECT
+                        btn.classList.add('correct');
+                        score += 10;
+                        scoreBoard.innerText = `점수: ${score}`;
+                        // Play Success Sound (Simulated via AudioContext if needed, simplified here)
+                    } else {
+                        // WRONG
+                        btn.classList.add('wrong');
+                        // Highlight the correct one
+                        optionBtns.forEach(b => {
+                            if (b.innerText === currentData.a) {
+                                b.classList.add('correct');
+                            }
+                        });
+                    }
+
+                    // Show Next Button after short delay
+                    setTimeout(() => {
+                        nextOverlay.style.display = 'flex';
+                    }, 500);
+                };
+            });
+        }
+
+        // Next Button Handler
+        nextBtn.onclick = () => {
+            currentQuestionIndex++;
+            loadQuestion();
+        };
+
+        // Start
+        initGame();
+
+    </script>
+</body>
+</html>
